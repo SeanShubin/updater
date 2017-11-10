@@ -1,0 +1,17 @@
+{
+  reportDir target/detangled
+  searchPaths
+  [
+    ./console/target/updater-console-0.1.jar
+  ]
+  level 2
+  startsWith
+  {
+    include [[com seanshubin updater]]
+    exclude []
+    drop [[com seanshubin updater]]
+  }
+  ignoreFiles []
+  canFailBuild true
+  allowedInCycle []
+}
