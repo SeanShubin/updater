@@ -1,7 +1,16 @@
 package com.seanshubin.updater.domain
 
-class UpdaterImpl extends Updater {
-  override def inNeedOfUpdate(pomFile: PomFile): Boolean = ???
+class UpdaterImpl(mavenCentral: MavenCentral) extends Updater {
+  override def inNeedOfUpdate(pomFile: PomFile): Boolean = {
+    val currentDependencyVersions = pomFile.dependencyVersions
+    val latestDependencyVersions = mavenCentral.latestDependencyVersionsFor(currentDependencyVersions.keys.toSeq)
+
+    def dependencyNeedsUpdate(dependency: Dependency): Boolean = {
+      latestDependencyVersions(dependency) > currentDependencyVersions(dependency)
+    }
+
+    currentDependencyVersions.keys.forall(dependencyNeedsUpdate)
+  }
 
   override def update(pomFile: PomFile): PomFile = ???
 }

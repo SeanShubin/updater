@@ -1,7 +1,9 @@
 package com.seanshubin.updater.domain
 
+import java.nio.file.Path
+
 trait PomFileService {
-  def load(): Seq[PomFile]
+  def loadAllUnderPath(path: Path): Seq[PomFile]
 
   def store(pomFile: PomFile): Unit
 }

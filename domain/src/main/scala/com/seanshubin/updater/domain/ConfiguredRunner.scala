@@ -1,9 +1,12 @@
 package com.seanshubin.updater.domain
 
-class Runner(pomFileService: PomFileService,
-             updater: Updater) extends Runnable {
+import java.nio.file.Path
+
+class ConfiguredRunner(pomFileService: PomFileService,
+                       updater: Updater,
+                       path: Path) extends Runnable {
   override def run(): Unit = {
-    val pomFiles = pomFileService.load()
+    val pomFiles = pomFileService.loadAllUnderPath(path)
     val pomFilesInNeedOfUpdate = pomFiles.filter(updater.inNeedOfUpdate)
     val updatedPomFiles = pomFilesInNeedOfUpdate.map(updater.update)
     updatedPomFiles.foreach(pomFileService.store)
