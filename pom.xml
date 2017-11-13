@@ -39,6 +39,7 @@
     <modules>
         <module>console</module>
         <module>domain</module>
+        <module>xml</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

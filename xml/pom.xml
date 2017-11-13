@@ -6,16 +6,10 @@
 
     <!-- The Basics -->
     <!--<groupId>...</groupId>-->
-    <artifactId>updater-domain</artifactId>
+    <artifactId>updater-xml</artifactId>
     <!--<version>...</version>-->
     <!--<packaging>...</packaging>-->
-    <dependencies>
-        <dependency>
-            <groupId>com.seanshubin.updater</groupId>
-            <artifactId>updater-xml</artifactId>
-            <version>${pom.parent.version}</version>
-        </dependency>
-    </dependencies>
+    <!--<dependencies>...</dependencies>-->
     <parent>
         <groupId>com.seanshubin.updater</groupId>
         <artifactId>updater-parent</artifactId>

@@ -13,9 +13,8 @@ class PomFileServiceImpl(fileFinder: FileFinder, files: FilesContract, charset: 
   override def store(pomFile: PomFile): Unit = ???
 
   private def load(file: Path): PomFile = {
-    val bytes = files.readAllBytes(file)
-    val text = IoUtil.bytesToString(bytes, charset)
-    val pomFile = PomFile.fromString(text)
+    val inputStream = files.newInputStream(file)
+    val pomFile = PomFile.fromInputStream(inputStream)
     pomFile
   }
 }
