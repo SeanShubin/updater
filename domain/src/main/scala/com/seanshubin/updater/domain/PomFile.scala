@@ -11,22 +11,21 @@ class PomFile(xmlNode: Node) {
     val dependenciesNodes = xmlNode.childElements("dependencies")
     val dependencyManagementNodes = xmlNode.childElements("dependencyManagement").flatMap(_.childElements("dependencies"))
     val parentNodes = dependenciesNodes ++ dependencyManagementNodes
-
     val dependencyVersionTuples = for {
       parentNode <- parentNodes
       dependency <- parentNode.childElements("dependency")
+      dependencyVersionTuple <- toDependencyVersionTuple(dependency)
     } yield {
-      toDependencyVersionTuple(dependency)
+      dependencyVersionTuple
     }
     val map = dependencyVersionTuples.toMap
-    map.foreach(println)
     map
   }
 
-  def toDependencyVersionTuple(node: Node): (Dependency, Version) = {
+  def toDependencyVersionTuple(node: Node): Option[(Dependency, Version)] = {
     val dependency = nodeToDependency(node)
     val version = nodeToVersion(node)
-    (dependency, version)
+    version.map((dependency, _))
   }
 
   def nodeToDependency(node: Node): Dependency = {
@@ -35,9 +34,19 @@ class PomFile(xmlNode: Node) {
     Dependency(groupId, artifactId)
   }
 
-  def nodeToVersion(node: Node): Version = {
-    val version = node.childElement("version").innerText
-    Version(version)
+  def nodeToVersion(node: Node): Option[Version] = {
+    val versions = for {
+      versionElement <- node.childElements("version")
+      text = versionElement.innerText
+      version = Version(text)
+    } yield {
+      version
+    }
+    if (versions.size < 2) {
+      versions.headOption
+    } else {
+      throw new RuntimeException("Too many version elements")
+    }
   }
 }
 

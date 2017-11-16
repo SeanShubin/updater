@@ -14,4 +14,8 @@ class LineEmittingNotifications(emit: String => Unit) extends Notifications {
   override def searchingForFiles(path: Path, name: String): Unit = {
     emit(s"searching for files named '$name' in path $path")
   }
+
+  override def fireUnableToFindDependencyInformation(reason: String, uri: String): Unit = {
+    emit(s"Unable to find dependency information at $uri, $reason")
+  }
 }

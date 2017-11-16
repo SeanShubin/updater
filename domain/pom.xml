@@ -15,6 +15,10 @@
             <artifactId>updater-xml</artifactId>
             <version>${pom.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.seanshubin.http.values</groupId>
+            <artifactId>http-values-client-apache</artifactId>
+        </dependency>
     </dependencies>
     <parent>
         <groupId>com.seanshubin.updater</groupId>

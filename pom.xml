@@ -34,6 +34,11 @@
                 <version>3.0.4</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>com.seanshubin.http.values</groupId>
+                <artifactId>http-values-client-apache</artifactId>
+                <version>1.0.1</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <modules>

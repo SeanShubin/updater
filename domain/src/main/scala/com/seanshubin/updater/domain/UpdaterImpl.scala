@@ -6,10 +6,10 @@ class UpdaterImpl(mavenCentral: MavenCentral) extends Updater {
     val latestDependencyVersions = mavenCentral.latestDependencyVersionsFor(currentDependencyVersions.keys.toSeq)
 
     def dependencyNeedsUpdate(dependency: Dependency): Boolean = {
-      latestDependencyVersions(dependency) > currentDependencyVersions(dependency)
+      ???
     }
 
-    currentDependencyVersions.keys.forall(dependencyNeedsUpdate)
+    latestDependencyVersions.keys.forall(dependencyNeedsUpdate)
   }
 
   override def update(pomFile: PomFile): PomFile = ???

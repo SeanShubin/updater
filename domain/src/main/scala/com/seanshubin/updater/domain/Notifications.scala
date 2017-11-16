@@ -9,4 +9,5 @@ trait Notifications {
 
   def finishedFindingPomFiles(files: Seq[Path]): Unit
 
+  def fireUnableToFindDependencyInformation(reason: String, uri: String): Unit
 }
