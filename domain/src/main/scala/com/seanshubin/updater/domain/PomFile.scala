@@ -1,10 +1,6 @@
 package com.seanshubin.updater.domain
 
-import java.io.InputStream
-import javax.xml.parsers.{DocumentBuilder, DocumentBuilderFactory}
-
 import com.seanshubin.updater.xml.Node
-import org.w3c.dom.Document
 
 class PomFile(xmlNode: Node) {
   def dependencyVersions: Map[Dependency, Version] = {
@@ -47,16 +43,5 @@ class PomFile(xmlNode: Node) {
     } else {
       throw new RuntimeException("Too many version elements")
     }
-  }
-}
-
-object PomFile {
-  private val documentBuilderFactory: DocumentBuilderFactory = DocumentBuilderFactory.newInstance
-  private val documentBuilder: DocumentBuilder = documentBuilderFactory.newDocumentBuilder
-
-  def fromInputStream(inputStream: InputStream): PomFile = {
-    val document: Document = documentBuilder.parse(inputStream)
-    val root: Node = new Node(document.getDocumentElement)
-    new PomFile(root)
   }
 }

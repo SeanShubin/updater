@@ -37,7 +37,7 @@
             <dependency>
                 <groupId>com.seanshubin.http.values</groupId>
                 <artifactId>http-values-client-apache</artifactId>
-                <version>1.0.1</version>
+                <version>1.0.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

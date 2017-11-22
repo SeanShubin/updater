@@ -25,10 +25,14 @@ trait ConfiguredDependencyInjection {
   val pomFileService: PomFileService = new PomFileServiceImpl(fileFinder, files, charset)
   val mavenRepositoryUri: String = "http://repo.maven.apache.org/maven2"
   val sender: Sender = new HttpSender
+  val versionsParser: VersionsParser = new VersionsParserImpl
+  val upgradeChooser: UpgradeChooser = new UpgradeChooserImpl
   val mavenCentral: MavenCentral = new MavenCentralImpl(
     mavenRepositoryUri,
     notifications.fireUnableToFindDependencyInformation,
-    sender)
+    sender,
+    versionsParser,
+    upgradeChooser)
   val updater: Updater = new UpdaterImpl(mavenCentral)
   val runner: Runnable = new ConfiguredRunner(pomFileService, updater, path)
 }
