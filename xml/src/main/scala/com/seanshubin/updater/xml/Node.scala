@@ -1,8 +1,10 @@
 package com.seanshubin.updater.xml
 
 import java.io.InputStream
+import java.nio.charset.Charset
 import javax.xml.parsers.{DocumentBuilder, DocumentBuilderFactory}
 
+import com.seanshubin.updater.io.IoUtil
 import org.w3c.dom.{Document, Node => DomNode}
 
 class Node(domNode: DomNode) {
@@ -52,5 +54,10 @@ object Node {
     val document: Document = documentBuilder.parse(inputStream)
     val root: Node = new Node(document.getDocumentElement)
     root
+  }
+
+  def fromString(text:String, charset:Charset):Node = {
+    val inputStream = IoUtil.stringToInputStream(text, charset)
+    fromInputStream(inputStream)
   }
 }
