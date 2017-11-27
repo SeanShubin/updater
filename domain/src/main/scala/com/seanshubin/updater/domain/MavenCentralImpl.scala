@@ -32,7 +32,7 @@ class MavenCentralImpl(mavenRepositoryUri: String,
       fireUnableToFindDependencyInformation(dependencyInfoUri)
       None
     } else if (response.statusCode == HttpServletResponse.SC_OK) {
-      val versionStrings = versionsParser.parse(response.text, response.effectiveCharset)
+      val versionStrings = versionsParser.parse(response.text)
       val versions = versionStrings.map(Version.fromString)
       val maybeVersionForUpgrade = upgradeChooser.selectUpgrade(dependency, versions)
       maybeVersionForUpgrade
