@@ -32,7 +32,9 @@ trait ConfiguredDependencyInjection {
     notifications.fireUnableToFindDependencyInformation,
     sender,
     versionsParser,
-    upgradeChooser)
+    upgradeChooser,
+    notifications.request,
+    notifications.response)
   val updater: Updater = new UpdaterImpl(mavenCentral)
   val runner: Runnable = new ConfiguredRunner(pomFileService, updater, path)
 }

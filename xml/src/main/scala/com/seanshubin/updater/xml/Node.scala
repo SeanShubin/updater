@@ -1,8 +1,10 @@
 package com.seanshubin.updater.xml
 
 import java.io.InputStream
+import java.nio.charset.StandardCharsets
 import javax.xml.parsers.{DocumentBuilder, DocumentBuilderFactory}
 
+import com.seanshubin.updater.io.IoUtil
 import org.w3c.dom.{Document, Node => DomNode}
 
 class Node(domNode: DomNode) {
@@ -24,7 +26,15 @@ class Node(domNode: DomNode) {
     child.text
   }
 
-  def childElement(name: String): Node = {
+  def childElement(names: String*): Node = {
+    if (names.size == 1) {
+      singleChildElement(names.head)
+    } else {
+      singleChildElement(names.head).childElement(names.tail: _*)
+    }
+  }
+
+  def singleChildElement(name: String): Node = {
     val matching = childElements(name)
     exactlyOne(matching, s"name is '$name'")
   }
@@ -52,5 +62,10 @@ object Node {
     val document: Document = documentBuilder.parse(inputStream)
     val root: Node = new Node(document.getDocumentElement)
     root
+  }
+
+  def fromString(text: String): Node = {
+    val inputStream = IoUtil.stringToInputStream(text, StandardCharsets.UTF_8)
+    fromInputStream(inputStream)
   }
 }
