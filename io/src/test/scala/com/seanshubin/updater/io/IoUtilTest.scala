@@ -8,6 +8,7 @@ import org.scalatest.FunSuite
 
 class IoUtilTest extends FunSuite {
   val charset: Charset = StandardCharsets.UTF_8
+
   test("bytes") {
     val inputStream = stringToInputStream("Hello, world!", charset)
     val string = inputStreamToString(inputStream, charset)
