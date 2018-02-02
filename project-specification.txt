@@ -1,0 +1,39 @@
+{
+  prefix [com seanshubin]
+  name [updater]
+  description 'Upgrade maven dependencies to latest'
+  version 0.1-SNAPSHOT
+  developer {
+    name 'Sean Shubin'
+    githubName SeanShubin
+    mavenUserName SeanShubin
+    organization 'Sean Shubin'
+    url http://seanshubin.com/
+  }
+  dependencies {
+    scala-library {
+      group org.scala-lang
+      artifact scala-library
+    }
+    scala-test {
+      group org.scalatest
+      artifact scalatest_2.12
+      scope test
+    }
+    http-values-client-apache {
+      group    com.seanshubin.http.values
+      artifact http-values-client-apache
+    }
+  }
+  global [scala-library scala-test]
+  modules {
+    console         [domain]
+    domain          [xml http-values-client-apache]
+    xml             [io]
+    io              []
+  }
+  detangler [console]
+  consoleEntryPoint {
+    console com.seanshubin.updater.console.EntryPoint
+  }
+}

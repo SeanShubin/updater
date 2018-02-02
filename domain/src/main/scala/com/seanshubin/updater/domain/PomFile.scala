@@ -1,6 +1,6 @@
 package com.seanshubin.updater.domain
 
-import com.seanshubin.updater.xml.Node
+import com.seanshubin.updater.xml.Structure.Node
 
 class PomFile(xmlNode: Node) {
   def dependencyVersions: Map[Dependency, Version] = {

@@ -1,14 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <!-- The Basics -->
-    <!--<groupId>...</groupId>-->
     <artifactId>updater-console</artifactId>
-    <!--<version>...</version>-->
-    <!--<packaging>...</packaging>-->
     <dependencies>
         <dependency>
             <groupId>com.seanshubin.updater</groupId>
@@ -19,13 +14,8 @@
     <parent>
         <groupId>com.seanshubin.updater</groupId>
         <artifactId>updater-parent</artifactId>
-        <version>0.1</version>
+        <version>0.1-SNAPSHOT</version>
     </parent>
-    <!--<dependencyManagement>...</dependencyManagement>-->
-    <!--<modules>...</modules>-->
-    <!--<properties>...</properties>-->
-
-    <!-- Build Settings -->
     <build>
         <sourceDirectory>src/main/scala</sourceDirectory>
         <testSourceDirectory>src/test/scala</testSourceDirectory>
@@ -37,7 +27,7 @@
             <plugin>
                 <groupId>com.seanshubin.detangler</groupId>
                 <artifactId>detangler-maven-plugin</artifactId>
-                <version>0.9</version>
+                <version>0.9.2</version>
                 <executions>
                     <execution>
                         <phase>verify</phase>
@@ -47,31 +37,35 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <detanglerConfig>detangler.txt</detanglerConfig>
+                    <detanglerConfig>${basedir}/detangler.txt</detanglerConfig>
                 </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <finalName>updater</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.seanshubin.updater.console.EntryPoint</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
-    <!--<reporting>...</reporting>-->
-
-    <!-- More Project Information -->
     <name>${project.groupId}:${project.artifactId}</name>
-    <!--<description>...</description>-->
-    <!--<url>...</url>-->
-    <!--<inceptionYear>...</inceptionYear>-->
-    <!--<licenses>...</licenses>-->
-    <!--<organization>...</organization>-->
-    <!--<developers>...</developers>-->
-    <!--<contributors>...</contributors>-->
-
-    <!-- Environment Settings -->
-    <!--<issueManagement>...</issueManagement>-->
-    <!--<ciManagement>...</ciManagement>-->
-    <!--<mailingLists>...</mailingLists>-->
-    <!--<scm>...</scm>-->
-    <!--<prerequisites>...</prerequisites>-->
-    <!--<repositories>...</repositories>-->
-    <!--<pluginRepositories>...</pluginRepositories>-->
-    <!--<distributionManagement>...</distributionManagement>-->
-    <!--<profiles>...</profiles>-->
 </project>
